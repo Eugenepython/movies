@@ -7,7 +7,8 @@ function App() {
   const [dValue, setDValue] = useState('')
   const [yValue, setYValue] = useState('')
 
-  const prodBackendURL = 'https://favoritemoviesbackend-production.up.railway.app'
+  const prodBackendURL = 'https://movie-server-production-c9ad.up.railway.app'
+  
   const localBackendURL = 'http://localhost:3000'
 
   
