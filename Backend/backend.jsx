@@ -23,12 +23,14 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ['http://localhost:5173', prodFrontendURL ], 
+    origin: 'https://movie-client-production.up.railway.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, 
+    credentials: true,
   })
 );
 
+
+//'http://localhost:5173',
 //const PORT = process.env.PG_PORT || 3000;
 
 const prodPort = thePool.options.port
