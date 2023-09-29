@@ -16,8 +16,10 @@ const thePool = new Pool({
   port: process.env.PG_PORT,
 });
 
+const prodFrontendURL = 'https://movie-client-production.up.railway.app/'  // this is the frontend URL
+
 const corsOptions = {
-  origin: '*',
+  origin: prodFrontendURL,
 };
 
 const PORT = process.env.PG_PORT || 3000;
@@ -70,3 +72,4 @@ app.listen(PORT, () => {
 console.log(`Server is running on port ${PORT}`);
 });
 
+//will this allow in production, for this backend to access the frontned in railway?  
