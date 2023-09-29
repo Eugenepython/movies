@@ -16,13 +16,13 @@ const thePool = new Pool({
   port: process.env.PG_PORT,
 });
 
-
+const corsOptions = {
+  origin: '*',
+};
 
 const PORT = process.env.PG_PORT || 3000;
 
-const corsOptions = {
-  origin: 'https://movie-client-production.up.railway.app',
-};
+
 
 console.log(thePool)
 
