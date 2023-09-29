@@ -41,6 +41,8 @@ console.log("hello")
 //const PORT = process.env.PG_PORT || 3000;
 const PORT = process.env.PORT || 3000;
 
+console.log(process.env.PORT)
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
