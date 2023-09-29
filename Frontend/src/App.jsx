@@ -1,18 +1,15 @@
 import { useState } from 'react'
 
-
 function App() {
+
+
 
   const [tValue, setTValue] = useState('')
   const [dValue, setDValue] = useState('')
   const [yValue, setYValue] = useState('')
 
-
   const prodBackendURL = 'https://movie-server-production-c9ad.up.railway.app';
-
-  const localBackendURL = 'http://localhost:3000'
-
-  
+  const devBackendURL = 'http://localhost:3000';
 
   function handleClick() {
     fetch(`${prodBackendURL}/submit`,  {
@@ -39,10 +36,8 @@ function App() {
       });
 }
   
-
   return (
     <>
-
       <h1>what to do</h1>
 
       <form
@@ -65,7 +60,7 @@ function App() {
           onChange={event => setDValue(event.target.value)}
         />
         <input
-          type="integer"
+          type="number"
           placeholder="add the year"
           value={yValue}
           onChange={event => setYValue(event.target.value)}
@@ -82,4 +77,8 @@ function App() {
 }
 
 export default App
+
+
+
+
 

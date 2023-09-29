@@ -16,27 +16,41 @@ const thePool = new Pool({
   port: process.env.PG_PORT,
 });
 
+
 const prodFrontendURL = 'https://movie-client-production.up.railway.app/'  // this is the frontend URL
 
-
-const corsOptions = {
-  origin: [prodFrontendURL, 'http://localhost:3000'], // Add your local development URL here
-};
-
-
-app.use(cors(corsOptions));
 app.use(express.json());
 
-const PORT = process.env.PG_PORT || 3000;
+app.use(
+  cors({
+    origin: ['http://localhost:5173', prodFrontendURL ], // Replace with your React frontend URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+  })
+);
 
+//const PORT = process.env.PG_PORT || 3000;
+
+const prodPort = thePool.options.port
+
+console.log(thePool.options.port + " is the production port") 
+
+const PORT = 3000 || prodPort;
+
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+}
+);
 
 let theValue = 'default value'
 
 thePool.query('SELECT * FROM favorite_movies', (error, result) => {
   if (error) {
     console.error('Error executing query:', error);
-  } else {
-    console.log('Query result:', result.rows);
+ } else {
+    //console.log('Query result:', result.rows);
+    console.log("it workds")
   }
 });
 
@@ -59,6 +73,8 @@ app.post('/submit', (req, res) => {
       }
     });
   });
+
+
 
   app.get('/submit', (req, res) => {
     // Handle the GET request logic here
