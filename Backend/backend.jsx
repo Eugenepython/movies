@@ -20,6 +20,10 @@ const thePool = new Pool({
 
 const PORT = process.env.PG_PORT || 3000;
 
+const corsOptions = {
+  origin: 'https://movie-client-production.up.railway.app',
+};
+
 console.log(thePool)
 
 let theValue = 'default value'
@@ -34,7 +38,7 @@ thePool.query('SELECT * FROM favorite_movies', (error, result) => {
 
 
 console.log(theValue)
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.post('/submit', (req, res) => {
