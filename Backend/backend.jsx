@@ -38,7 +38,8 @@ const prodPort = thePool.options.port
 console.log(thePool.options.port + " is the production port") 
 
 //const PORT = 3000 || prodPort;
-const PORT = process.env.PG_PORT || 3000;
+//const PORT = process.env.PG_PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 
 app.get('/', (req, res) => {
