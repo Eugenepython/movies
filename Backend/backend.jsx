@@ -17,15 +17,15 @@ const thePool = new Pool({
 });
 
 
-const prodFrontendURL = 'https://movie-client-production.up.railway.app/'  // this is the frontend URL
+const prodFrontendURL = 'https://movie-client-production.up.railway.app'  
 
 app.use(express.json());
 
 app.use(
   cors({
-    origin: ['http://localhost:5173', prodFrontendURL ], // Replace with your React frontend URL
+    origin: ['http://localhost:5173', prodFrontendURL ], 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+    credentials: true, 
   })
 );
 
@@ -35,7 +35,8 @@ const prodPort = thePool.options.port
 
 console.log(thePool.options.port + " is the production port") 
 
-const PORT = 3000 || prodPort;
+//const PORT = 3000 || prodPort;
+const PORT = process.env.PG_PORT || 3000;
 
 
 app.get('/', (req, res) => {
