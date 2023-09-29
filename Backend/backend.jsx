@@ -18,15 +18,17 @@ const thePool = new Pool({
 
 const prodFrontendURL = 'https://movie-client-production.up.railway.app/'  // this is the frontend URL
 
+
 const corsOptions = {
-  origin: prodFrontendURL,
+  origin: [prodFrontendURL, 'http://localhost:3000'], // Add your local development URL here
 };
+
+
+app.use(cors(corsOptions));
+app.use(express.json());
 
 const PORT = process.env.PG_PORT || 3000;
 
-
-
-console.log(thePool)
 
 let theValue = 'default value'
 
@@ -38,10 +40,6 @@ thePool.query('SELECT * FROM favorite_movies', (error, result) => {
   }
 });
 
-
-console.log(theValue)
-app.use(cors(corsOptions));
-app.use(express.json());
 
 app.post('/submit', (req, res) => {
     console.log('Received POST request:', req.body);
@@ -71,5 +69,3 @@ app.post('/submit', (req, res) => {
 app.listen(PORT, () => {
 console.log(`Server is running on port ${PORT}`);
 });
-
-//will this allow in production, for this backend to access the frontned in railway?  
