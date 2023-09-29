@@ -4,8 +4,8 @@ const cors = require('cors');
 const { Pool } = require('pg'); 
 
 const path = require('path');
-const dotenvPath = path.join(__dirname, '..', '.env');
-require('dotenv').config({ path: dotenvPath });
+//const dotenvPath = path.join(__dirname, '..', '.env');
+//require('dotenv').config({ path: dotenvPath });
 
 
 const thePool = new Pool({
