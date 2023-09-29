@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "backend.jsx",
+  "main": "backend.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon backend.jsx",
-    "start": "pm2 start backend.jsx --name MovieServer"
+    "dev": "nodemon backend.js",
+    "start" : "node backend.js"
   },
   "author": "",
   "license": "ISC",
