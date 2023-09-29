@@ -1,12 +1,11 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const { Pool } = require('pg'); 
+const { Pool } = require('pg');
 
 const path = require('path');
 //const dotenvPath = path.join(__dirname, '..', '.env');
 //require('dotenv').config({ path: dotenvPath });
-
 
 const thePool = new Pool({
   user: process.env.PG_USER,
@@ -16,58 +15,39 @@ const thePool = new Pool({
   port: process.env.PG_PORT,
 });
 
-
-const prodFrontendURL = 'https://movie-client-production.up.railway.app'  
+const prodFrontendURL = process.env.FRONTEND_URL;
 
 app.use(express.json());
 
 app.use(
   cors({
-    origin: 'https://movie-client-production.up.railway.app',
+    origin: prodFrontendURL,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   })
 );
 
-
-//'http://localhost:5173',
-//const PORT = process.env.PG_PORT || 3000;
-
-const prodPort = thePool.options.port
-
-console.log(thePool.options.port + " is the production port") 
-console.log("hello")
-//const PORT = 3000 || prodPort;
-//const PORT = process.env.PG_PORT || 3000;
-const PORT = process.env.PORT || 3000;
-
-console.log(process.env.PORT)
-
+console.log("hello");
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
-}
-);
-
-let theValue = 'default value'
+});
 
 thePool.query('SELECT * FROM favorite_movies', (error, result) => {
   if (error) {
     console.error('Error executing query:', error);
- } else {
+  } else {
     //console.log('Query result:', result.rows);
-    console.log("it workds")
+    console.log("it works")
   }
 });
 
-
 app.post('/submit', (req, res) => {
-    console.log('Received POST request:', req.body);
-    //res.send({ message: 'ok', data: req.body }); 
-    const valueToStore = req.body;
-    console.log('valueToStore:', valueToStore.director);
-    thePool.query(
-    'INSERT INTO favorite_movies (title, director, release_year) VALUES ($1, $2, $3)', 
+  console.log('Received POST request:', req.body);
+  //res.send({ message: 'ok', data: req.body }); 
+  const valueToStore = req.body;
+  console.log('valueToStore:', valueToStore.director);
+  thePool.query('INSERT INTO favorite_movies (title, director, release_year) VALUES ($1, $2, $3)',
     [valueToStore.title, valueToStore.director, valueToStore.year],
     (error, result) => {
       if (error) {
@@ -78,16 +58,17 @@ app.post('/submit', (req, res) => {
         res.send({ message: 'ok', data: req.body });
       }
     });
-  });
+});
 
+const theValue = 'default value';
 
+app.get('/submit', (req, res) => {
+  // Handle the GET request logic here
+  res.send(theValue);
+});
 
-  app.get('/submit', (req, res) => {
-    // Handle the GET request logic here
-    res.send(theValue);
-  });
-  
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
